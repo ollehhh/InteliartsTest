@@ -2,6 +2,7 @@ package ui;
 
 import connection.Connector;
 import connection.Parser;
+import domain.Currency;
 import domain.Purchase;
 import connection.Request;
 
@@ -176,11 +177,13 @@ public class Menu {
     }
 
     void makeReport() {
+
         System.out.println("For taking report write year and currency in format <<2019 UAH>>");
         purchases.clear();
         Parser parser = new Parser();
+        ArrayList<Currency> currencies = parser.parseJSON();
         Pattern spl = Pattern.compile("\\s");
-        Map<String, Double> map = parser.parseJSON();
+
         Double sum = 0.0;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -191,6 +194,7 @@ public class Menu {
             e.printStackTrace();
         }
 
+
         String[] splitInfo = spl.split(info, 2);
         if (Pattern.matches("^[0-9]{4}$", splitInfo[0])) {
             if (Pattern.matches("^[A-Z]{3}$", splitInfo[1])) {
@@ -200,17 +204,26 @@ public class Menu {
 
                 for (int i = 0; i < purchases.size(); i++) {
 
-                    sum += purchases.get(i).getPrice() / map.get(purchases.get(i).getCurrency());
+                    for (int j = 0; j < currencies.size(); j++) {
 
+                        if (purchases.get(i).getCurrency().equals(currencies.get(j).getName()))
+                            sum += purchases.get(i).getPrice() / currencies.get(j).getPrice();
+                    }
 
                 }
+                for (int j = 0; j < currencies.size(); j++) {
+                    if (splitInfo[1].equals(currencies.get(j).getName())) {
+                        sum = sum * currencies.get(j).getPrice();
+                    }
+                }
+
 
             }
 
         }
-        sum = sum * map.get(splitInfo[1]);
+
         System.out.println();
-        System.out.println(sum + splitInfo[1]);
+        System.out.println(sum + " " + splitInfo[1]);
 
 
     }

@@ -1,5 +1,6 @@
 package connection;
 
+import domain.Currency;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -9,10 +10,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Map;
+import java.util.ArrayList;
+
+import java.util.regex.Pattern;
 
 public class Parser {
-    public Map<String, Double> parseJSON() {
+    public ArrayList<Currency> parseJSON() {
+        ArrayList<Currency> currencies = new ArrayList<Currency>();
+        Currency currency;
         JSONObject json = null;
         URL url = null;
         JSONParser parser = new JSONParser();
@@ -49,6 +54,26 @@ public class Parser {
         }
 
 
-        return (Map<String, Double>) json.get("rates");
+        input = json.get("rates").toString();
+
+        input = input.replace("{", "");
+        input = input.replace("}", "");
+        input = input.replace("\"", "");
+        input = input.replace(":", " ");
+        Pattern spl = Pattern.compile(",");
+        String[] splitInfo = spl.split(input);
+
+        spl = Pattern.compile("\\s");
+        for (int i = 0; i < splitInfo.length; i++) {
+            currency = new Currency();
+            String[] splitNext = spl.split(splitInfo[i]);
+            currency.setName(splitNext[0]);
+            currency.setPrice(Double.parseDouble(splitNext[1]));
+            currencies.add(currency);
+
+        }
+
+
+        return currencies;
     }
 }
