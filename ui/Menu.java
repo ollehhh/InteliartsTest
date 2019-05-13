@@ -25,8 +25,8 @@ public class Menu {
     public void startMenu() {
 
         BufferedReader br;
-        connector.startConnection();
 
+        String s = "";
         Integer i = 0;
         while (check > 0) {
             System.out.println();
@@ -43,9 +43,16 @@ public class Menu {
 
             br = new BufferedReader(new InputStreamReader(System.in));
             try {
-                i = Integer.parseInt(br.readLine());
+                s = br.readLine();
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+            try {
+                i = Integer.parseInt(s);
+            }
+            catch (Exception e){
+                System.out.println("You write letter, it must be number, try again!");
+                startMenu();
             }
             System.out.println(i);
 
@@ -79,7 +86,7 @@ public class Menu {
                 default: {
 
                     System.out.println("You write something wrong, pls try again");
-
+                    break;
 
                 }
 
@@ -227,5 +234,7 @@ public class Menu {
 
 
     }
-
+    public void startConnection(){
+        connector.startConnection();
+    }
 }
