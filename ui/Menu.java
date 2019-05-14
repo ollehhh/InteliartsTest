@@ -1,3 +1,7 @@
+ /*
+  * Copyright (c) Olehs company, Inc.
+  * This software is provided by one person!
+  */
 package ui;
 
 import connection.Connector;
@@ -14,8 +18,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.regex.Pattern;
-
+ /**
+  * It`s class with realization of ui for menu.
+  * @version 1.0 14 May 2019
+  * @author Oleh Zarichnyi
+  */
 public class Menu {
+    /*
+    This bloc of code implements with 6 methods. Menu war realised with switch-case.
+    One method used for connection.
+    All other are for implementation of points of menu.
+     */
     String info = null;
     ArrayList<Purchase> purchases = new ArrayList<Purchase>();
     Request req = new Request();

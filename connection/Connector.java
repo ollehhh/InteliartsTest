@@ -1,12 +1,22 @@
+ /*
+  * Copyright (c) Olehs company, Inc.
+  * This software is provided by one person!
+  */
 package connection;
 import domain.Purchase;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-
+ /**
+  * It`s class with realization of connection to our database.
+  * @version 1.0 14 May 2019
+  * @author Oleh Zarichnyi
+  */
 public class Connector {
-
+    /*
+    This class implements methods to open connection with database, closing the same connection and running requests.
+     */
     private static final String DB_URL = "jdbc:mysql://db4free.net:3306/ollehhh";
     private static final String USER = "ollehhh";
     private static final String PASS = "lhgfei111";

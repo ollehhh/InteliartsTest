@@ -1,3 +1,7 @@
+ /*
+  * Copyright (c) Olehs company, Inc.
+  * This software is provided by one person!
+  */
 package connection;
 
 import domain.Currency;
@@ -13,8 +17,16 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import java.util.regex.Pattern;
-
+ /**
+  * It`s class with realization of parser of Json file.
+  * @version 1.0 14 May 2019
+  * @author Oleh Zarichnyi
+  */
 public class Parser {
+    /*
+    This class implements connection to Json file, parse it and create local Json file to more comfortable work with it.
+    Also you can see here saving important information from Json file into collection of Currencys.
+     */
     public ArrayList<Currency> parseJSON() {
         ArrayList<Currency> currencies = new ArrayList<Currency>();
         Currency currency;
